@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en" >
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>New Web Project</title>
+  </head>
+  <body>
+    <script src="headtrackr.js"></script>
+    <script src="jquery-1.11.3.min.js"></script>
+
+    <h1>New Web Project Page</h1>
+    <span id="x">x</span>
+    <span id="y">y</span>
+    <span id="z">z</span>
+
+    <canvas id="inputCanvas" width="320" height="240" style="display:none;"></canvas>
+    <!-- <video id="inputVideo" autoplay loop width="320" height="240"></video> -->
+    <video id="inputVideo" autoplay loop width="320" height="240"
+           style="position:absolute;top:0;right:200px;z-index:2;"></video>
+    
+    <!-- <input type="image" src="http://68.181.172.237/nphMotionJpeg?Resolution=640x480&Quality=Standard" width="640" height="480" border="0"> -->
+    <input id="video_stream" type="image"
+           src="http://68.181.172.237/nphMotionJpeg?Resolution=640x480&Quality=Standard"
+           width="120%"
+           style="position:relative;margin-left:-300px;" border="0">
+
+    <script type="text/javascript">
+  		var videoInput = document.getElementById('inputVideo');
+  		var canvasInput = document.getElementById('inputCanvas');
+  		
+  		var x = $("#x");
+  		var y = $("#y");
+  		var z = $("#z");
+  
+  		var htracker = new headtrackr.Tracker();
+  		htracker.init(videoInput, canvasInput);
+  		htracker.start();
+  		
+  		document.addEventListener('headtrackingEvent',
+  		  function (event) {
+  		    
+  		    x.text(parseFloat(event.x).toFixed(2));
+  		    // console.log(event.x + "px");
+  		    $("#video_stream").css('left', 100 + event.x * 15 + "px");
+  		    
+  		    y.text(parseFloat(event.y).toFixed(2));
+  		    $("#video_stream").css('top', - (100 + event.y * 15) + "px");
+  		    // console.log("y:" + event.y);
+  		    
+  		    //z.text(parseFloat(event.z).toFixed(2));
+  		    // console.log("z:" + event.z);
+  		    //z.text(100 + event.z + "%");
+  		    //$("#video_stream").css('width', 50 + event.z + "%");
+  		    
+  		  });
+    </script>
+
+  </body>
+
+</html>
+
