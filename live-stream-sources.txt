@@ -1,0 +1,25 @@
+
+Final Streams
+-------------
+1. http://www.insecam.org/cam/view/210134/
+2. http://www.insecam.org/cam/view/212698/
+3. http://www.insecam.org/cam/view/184795/
+4. http://www.insecam.org/cam/view/211479/
+5. http://www.insecam.org/cam/view/211407/
+6. http://www.insecam.org/cam/view/168778/
+
+Image Sources
+-------------
+1. http://68.181.172.237/ImageViewer?Direction=&Resolution=640x480&Quality=Standard&Size=STD&PresetOperation=Move&Data=0&Frame2=PanTilt&Type=&Language=0&PanTiltMin=0&RPeriod=65534&Sound=Enable&Mode=H264&SendMethod=4&View=Normal
+2. http://89.190.78.245:88/mjpg/video.mjpg
+3. http://118.140.78.106:5002/img/video.mjpeg
+4. http://202.226.205.248/SnapshotJPEG?Resolution=640x480&Quality=Clarity
+5. http://175.206.105.251:50000/nphMotionJpeg?Resolution=320x240&Quality=Standard
+6. http://129.94.82.76/mjpg/video.mjpg
+
+
+
+
+
+
+
