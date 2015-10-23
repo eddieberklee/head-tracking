@@ -1,0 +1,29 @@
+<body>
+  Home
+  <div id="debug_view">which button</div>
+  <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+  <script>
+    $debug_view = $('#debug_view');
+    // $debug_view.text("hi");
+
+    refreshTime = 500;
+
+    setTimeout(ajaxRefresh, refreshTime);
+
+    function ajaxRefresh() {
+      $.ajax({
+          url: "/which_button",
+          context: document.body
+        }
+      ).done(
+        function(data) {
+          $debug_view.text(data);
+        }
+      );
+      setTimeout(ajaxRefresh, refreshTime); // i am polling
+    }
+
+
+  </script>
+
+</body>
