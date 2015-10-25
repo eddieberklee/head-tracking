@@ -1,7 +1,7 @@
 
 Installing Pip & Tornado
-- python pip
-- pip install tornado
+- Install pip & Flask (http://flask.pocoo.org/)
+- 
 
 
 
