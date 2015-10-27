@@ -1,0 +1,282 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en" style="width:100%;height:100%;"><!-- for setting height %age on the video stream -->
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Windows Project</title>
+    <style>
+      .position_debug {
+        position: fixed;
+        top: 40px;
+        font-size: 40px;
+        color: #2dbe60;
+        z-index: 99; /* on top of everything */
+      }
+      .circle {
+        width: 100px;
+        height: 100px;
+        border-radius: 50px;
+      }
+      .circle:first-child {
+        margin-top: 40px;
+      }
+      .circle {
+        margin-top: 25px;
+      }
+      .red2 { background-color: #c0392b; }
+      .orange2 { background-color: #d35400; }
+      .yellow2 { background-color: #f39c12; }
+      .green2 { background-color: #27ae60; }
+      .blue2 { background-color: #2980b9; }
+      .purple2 { background-color: #8e44ad; }
+      .darkgrey2 { background-color: #2c3e50; }
+      .left, .right {
+        position: absolute;
+        z-index: 105; /* why am I so ugly asked the sad css styling to the web dev */
+      }
+      .left {
+        left: 80px;
+      }
+      .right {
+        left: 580px;
+      }
+      #window_frame_mask {
+        width: 550px;
+        height: 748px;
+        margin: 0 auto;
+        position: absolute;
+        z-index: 100;
+      }
+    </style>
+  </head>
+  <body style="width:100%;height:100%;background-color:white;"><!-- for setting height %age on the video stream -->
+    <script src="headtrackr.min.js"></script>
+    <script src="jquery-1.11.3.min.js"></script>
+
+    <!-- this code is so ugly eff my life -->
+    <div class="left">
+      <div class="circle red2"></div>
+      <div class="circle orange2"></div>
+      <div class="circle yellow2"></div>
+    </div>
+    <div class="right">
+      <div class="circle green2"></div>
+      <div class="circle blue2"></div>
+      <div class="circle purple2"></div>
+    </div>
+
+    <div style="position:relative;
+                width: 500px;
+                height: 748px;
+                margin: 0 auto;
+                top: 0;
+                left: 0;">
+      <img src="window-cropping.png" id="window_frame_mask"/>
+      <div style="
+          width: 550px;
+          height: 748px;
+          overflow: hidden;">
+        <input id="video_stream" type="image"
+          src="http://129.94.82.76/mjpg/video.mjpg"
+          style="
+            height:85%;
+            position:relative;
+            margin-left:-150px;
+            margin-top:70px;" border="0">
+      </div>
+    </div>
+
+    <img src= "liveicon.gif"
+        style="position: fixed;
+        width: 140px;
+        right: 65px;
+        z-index:99;
+        bottom: 120px;">
+
+    <span id="x_debug" class="position_debug" style="left:100px;">x</span>
+    <span id="y_debug" class="position_debug" style="left:250px;">y</span>
+    <span id="z_debug" class="position_debug" style="left:400px;">z</span>
+
+    <canvas id="inputCanvas" width="320" height="240" style="display:none;"></canvas>
+    <!-- <video id="inputVideo" autoplay loop width="320" height="240"></video> -->
+    <video id="inputVideo" autoplay loop width="320" height="240"
+           style="position:fixed;
+           width: 100%;
+           height: 100%;
+           z-index:2;
+           z-index:120;
+           opacity: 0.2;"></video>
+    
+    <!-- <input type="image" src="http://68.181.172.237/nphMotionJpeg?Resolution=640x480&Quality=Standard" width="640" height="480" border="0"> -->
+
+    <!--
+      src="http://68.181.172.237/nphMotionJpeg?Resolution=640x480&Quality=Standard"
+      src="http://89.190.78.245:88/mjpg/video.mjpg"
+      src="http://118.140.78.106:5002/img/video.mjpeg"
+      src="http://202.226.205.248/nphMotionJpeg?Resolution=640x480&Quality=Clarity"
+      src="http://175.206.105.251:50000/nphMotionJpeg?Resolution=320x240&Quality=Standard"
+      src="http://129.94.82.76/mjpg/video.mjpg"
+    -->
+
+    <!-- width="250%" -->
+    <!-- margin-left:-25%; -->
+    <!-- margin-top:-15% -->
+
+    <script type="text/javascript">
+      var currentVideoStream = 0;
+  		var videoInput = document.getElementById('inputVideo');
+  		var canvasInput = document.getElementById('inputCanvas');
+  		
+  		var $x_debug = $("#x_debug");
+  		var $y_debug = $("#y_debug");
+  		var $z_debug = $("#z_debug");
+  
+  		var htracker = new headtrackr.Tracker();
+  		htracker.init(videoInput, canvasInput);
+  		htracker.start();
+
+      // japan
+      // http://202.226.205.248/nphMotionJpeg?Resolution=640x480&Quality=Clarity
+/*
+1 - czech
+2 - korea
+3 - hong kong
+4 - japan
+5 - sydney
+6 - LA
+*/
+      // australia
+      // http://129.94.82.76/mjpg/video.mjpg
+
+      // hong kong
+      // http://118.140.78.106:5002/img/video.mjpeg
+
+      // usc
+      // http://68.181.172.237/nphMotionJpeg?Resolution=640x480&Quality=Standard
+
+      video_stream_urls = [
+        "http://116.81.141.245/nphMotionJpeg?Resolution=640x480&Quality=Standard",
+        "http://175.206.105.251:50000/nphMotionJpeg?Resolution=640x480&Quality=Standard",
+        "http://118.140.78.106:5002/img/video.mjpeg",
+        "http://180.19.219.217/nphMotionJpeg?Resolution=640x480&Quality=Standard",
+        "http://129.94.82.76/mjpg/video.mjpg",
+        "http://67.53.215.234:50001/nphMotionJpeg?Resolution=640x480&Quality=Standard",
+      ];
+
+      var video_stream_index = 0;
+
+      var poll = (function() {
+        var timer = 0;
+        return function(callback, ms) {
+          clearInterval(timer);
+          timer = setInterval(callback, ms);
+        };
+      })();
+
+      refreshTime = 100;
+
+      var video_stream_index_mod  = 0;
+
+      setTimeout(ajaxRefresh, refreshTime);
+
+      function ajaxRefresh() {
+        $.ajax({
+            url: "/which_button",
+            context: document.body
+          }
+        ).done(
+          function(data) {
+            
+            //$debug_view.text(data);
+
+            /*if (data == "refresh") {
+              window.setTimeout("window.location.reload()", 400);
+            }*/
+
+            // convert data to a button number, then translate to index
+            video_stream_index_mod = data;
+            video_stream_index_mod -= 1;
+          }
+        );
+        setTimeout(ajaxRefresh, refreshTime); // i am polling
+      }
+
+      poll(
+        function() {
+          console.log("currentVideoStream:" + currentVideoStream);
+          console.log("video_stream_index_mod:" + video_stream_index_mod);
+          if (currentVideoStream != video_stream_index_mod) {
+            currentVideoStream = video_stream_index_mod;
+            console.log("" + video_stream_urls[video_stream_index_mod]);
+            console.log("" + video_stream_index_mod);
+            return $('#video_stream').attr('src', video_stream_urls[video_stream_index_mod]);
+          }
+        }, refreshTime
+      );
+
+      function enforceCoordinateBoundX(coord) {
+        // cap to -20 and 20 to prevent any wild movements
+        coord = parseFloat(coord);
+        var CEILING = 40;
+        var FLOOR = -40;
+        if (coord > 0) {
+          coord = Math.min(coord, CEILING);
+        } else {
+          coord = Math.max(coord, FLOOR);
+        }
+        return coord;
+      }
+
+      function enforceCoordinateBoundY(coord) {
+        // cap to -20 and 20 to prevent any wild movements
+        coord = parseFloat(coord);
+        var CEILING = 40;
+        var FLOOR = -10;
+        if (coord > 0) {
+          coord = Math.min(coord, CEILING);
+        } else {
+          coord = Math.max(coord, FLOOR);
+        }
+        return coord;
+      }
+
+      // ************************************************************
+      // TODO: how to ping the motion image to load again, it freezes
+
+  		document.addEventListener('headtrackingEvent',
+  		  function (event) {
+          var x = event.x;
+          var y = event.y;
+          var z = event.z;
+
+          // console.log(x);
+          // console.log(y);
+
+          x = enforceCoordinateBoundX(x);
+          y = enforceCoordinateBoundY(y);
+
+  		    $x_debug.text(parseFloat(x).toFixed(2));
+          $y_debug.text(parseFloat(y).toFixed(2));
+          $z_debug.text(parseFloat(y).toFixed(2));
+
+          var adjustedX = x * 20;
+          var adjustedY = y * 6;
+
+          adjustedY *= -1;
+
+  		    $("#video_stream").css('left', adjustedX + "px");
+  		    $("#video_stream").css('top', adjustedY + "px");
+  		    
+  		    //z.text(parseFloat(event.z).toFixed(2));
+  		    // console.log("z:" + event.z);
+  		    //z.text(100 + event.z + "%");
+  		    //$("#video_stream").css('width', 50 + event.z + "%");    
+  		  }
+      );
+
+    </script>
+
+  </body>
+
+</html>
+
