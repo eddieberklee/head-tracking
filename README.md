@@ -1,7 +1,8 @@
+Preview the web version: https://cdn.rawgit.com/eddieberklee/windows-project-head-tracking/master/portfolio-website/index.html
 
-Installing Pip & Tornado
-- Install pip & Flask (http://flask.pocoo.org/)
-- 
+
+Installing Pip & Flask
+- (http://flask.pocoo.org/)
 
 
 
