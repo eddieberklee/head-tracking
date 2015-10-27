@@ -4,18 +4,68 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Windows Project</title>
+    <link href='https://fonts.googleapis.com/css?family=Lato:400,300,100,700' rel='stylesheet' type='text/css'>
     <style>
+      .red2.selected { background-color: #c0392b; }
+      .orange2.selected { background-color: #d35400; }
+      .yellow2.selected { background-color: #f39c12; }
+      .green2.selected { background-color: #27ae60; }
+      .blue2.selected { background-color: #2980b9; }
+      .purple2.selected { background-color: #8e44ad; }
+      .darkgrey2.selected { background-color: #2c3e50; }
+
+      .red2:hover { background-color: #c0392b; }
+      .orange2:hover { background-color: #d35400; }
+      .yellow2:hover { background-color: #f39c12; }
+      .green2:hover { background-color: #27ae60; }
+      .blue2:hover { background-color: #2980b9; }
+      .purple2:hover { background-color: #8e44ad; }
+      .darkgrey2:hover { background-color: #2c3e50; }
+
+      .red2:hover span { color: #c0392b; }
+      .orange2:hover span { color: #d35400; }
+      .yellow2:hover span { color: #f39c12; }
+      .green2:hover span { color: #27ae60; }
+      .blue2:hover span { color: #2980b9; }
+      .purple2:hover span { color: #8e44ad; }
+      .darkgrey2:hover span { color: #2c3e50; }
+
+      .red2.selected span { color: #c0392b; }
+      .orange2.selected span { color: #d35400; }
+      .yellow2.selected span { color: #f39c12; }
+      .green2.selected span { color: #27ae60; }
+      .blue2.selected span { color: #2980b9; }
+      .purple2.selected span { color: #8e44ad; }
+      .darkgrey2.selected span { color: #2c3e50; }
+
       .position_debug {
         position: fixed;
         top: 40px;
         font-size: 40px;
-        color: #2dbe60;
-        z-index: 99; /* on top of everything */
+        color: white;
+        z-index: 999; /* on top of everything */
       }
       .circle {
-        width: 100px;
-        height: 100px;
-        border-radius: 50px;
+        width: 10px;
+        /* height: 45px; */
+        padding-top: 8px; /* wait this is kind of a cool effect, intended to be circle tho */
+        border-radius: 80px; /* might as well max out */
+
+        font-family: 'Lato', sans-serif;
+        font-size: 1.2em;
+        color: white;
+        text-align: center;
+        line-height: 1.4em;
+        text-transform: uppercase;
+        overflow: visible; /* just to be explicit cause i'm edgy like that */
+      }
+      .circle:hover {
+        cursor: pointer;
+      }
+      .circle > span {
+        position: relative; /* lulz sorry i'm lazy fuck css */
+        top: -5px;
+        left: 20px;
       }
       .circle:first-child {
         margin-top: 40px;
@@ -23,19 +73,13 @@
       .circle {
         margin-top: 25px;
       }
-      .red2 { background-color: #c0392b; }
-      .orange2 { background-color: #d35400; }
-      .yellow2 { background-color: #f39c12; }
-      .green2 { background-color: #27ae60; }
-      .blue2 { background-color: #2980b9; }
-      .purple2 { background-color: #8e44ad; }
-      .darkgrey2 { background-color: #2c3e50; }
       .left, .right {
         position: absolute;
+        top: -40px;
         z-index: 105; /* why am I so ugly asked the sad css styling to the web dev */
       }
       .left {
-        left: 80px;
+        left: -130px;
       }
       .right {
         left: 580px;
@@ -49,28 +93,28 @@
       }
     </style>
   </head>
-  <body style="width:100%;height:100%;background-color:white;"><!-- for setting height %age on the video stream -->
+  <body style="width:100%;height:100%;background-color:black;"><!-- for setting height %age on the video stream -->
     <script src="headtrackr.min.js"></script>
     <script src="jquery-1.11.3.min.js"></script>
-
-    <!-- this code is so ugly eff my life -->
-    <div class="left">
-      <div class="circle red2"></div>
-      <div class="circle orange2"></div>
-      <div class="circle yellow2"></div>
-    </div>
-    <div class="right">
-      <div class="circle green2"></div>
-      <div class="circle blue2"></div>
-      <div class="circle purple2"></div>
-    </div>
 
     <div style="position:relative;
                 width: 500px;
                 height: 748px;
                 margin: 0 auto;
-                top: 0;
+                top: 90px;
                 left: 0;">
+      <!--
+      <div class="left">
+      </div>
+      -->
+      <div class="right">
+        <div class="circle red2"><span>Czech Republic</span></div>
+        <div class="circle orange2"><span>Korea</span></div>
+        <div class="circle yellow2"><span>Hong Kong</span></div>
+        <div class="circle green2"><span>Japan</span></div>
+        <div class="circle selected blue2"><span>Sydney</span></div>
+        <div class="circle purple2"><span>Los Angeles</span></div>
+      </div>
       <img src="window-cropping.png" id="window_frame_mask"/>
       <div style="
           width: 550px;
@@ -79,10 +123,11 @@
         <input id="video_stream" type="image"
           src="http://129.94.82.76/mjpg/video.mjpg"
           style="
-            height:85%;
-            position:relative;
-            margin-left:-150px;
-            margin-top:70px;" border="0">
+            height: 90%;
+            position: relative;
+            margin-top: 70px;
+            margin-left: -180px;
+            z-index: 90;" border="0">
       </div>
     </div>
 
@@ -90,7 +135,7 @@
         style="position: fixed;
         width: 140px;
         right: 65px;
-        z-index:99;
+        z-index: 99;
         bottom: 120px;">
 
     <span id="x_debug" class="position_debug" style="left:100px;">x</span>
@@ -101,10 +146,11 @@
     <!-- <video id="inputVideo" autoplay loop width="320" height="240"></video> -->
     <video id="inputVideo" autoplay loop width="320" height="240"
            style="position:fixed;
+           top: 0;
+           left: 0;
            width: 100%;
            height: 100%;
-           z-index:2;
-           z-index:120;
+           z-index: 80;
            opacity: 0.2;"></video>
     
     <!-- <input type="image" src="http://68.181.172.237/nphMotionJpeg?Resolution=640x480&Quality=Standard" width="640" height="480" border="0"> -->
@@ -163,6 +209,14 @@
         "http://67.53.215.234:50001/nphMotionJpeg?Resolution=640x480&Quality=Standard",
       ];
 
+      $(".circle").click(function() {
+        var circleIndex = $(".circle").index($(this));
+        $(".circle").removeClass('selected');
+        $(this).addClass('selected');
+        $('#video_stream').attr('src', video_stream_urls[circleIndex]);
+      });
+
+      /*
       var video_stream_index = 0;
 
       var poll = (function() {
@@ -178,7 +232,9 @@
       var video_stream_index_mod  = 0;
 
       setTimeout(ajaxRefresh, refreshTime);
+      */
 
+      /*
       function ajaxRefresh() {
         $.ajax({
             url: "/which_button",
@@ -189,9 +245,9 @@
             
             //$debug_view.text(data);
 
-            /*if (data == "refresh") {
-              window.setTimeout("window.location.reload()", 400);
-            }*/
+            //if (data == "refresh") {
+            //  window.setTimeout("window.location.reload()", 400);
+            //}
 
             // convert data to a button number, then translate to index
             video_stream_index_mod = data;
@@ -213,12 +269,13 @@
           }
         }, refreshTime
       );
+      */
 
       function enforceCoordinateBoundX(coord) {
         // cap to -20 and 20 to prevent any wild movements
         coord = parseFloat(coord);
-        var CEILING = 40;
-        var FLOOR = -40;
+        var CEILING = 20; // left
+        var FLOOR = -25;
         if (coord > 0) {
           coord = Math.min(coord, CEILING);
         } else {
@@ -230,8 +287,8 @@
       function enforceCoordinateBoundY(coord) {
         // cap to -20 and 20 to prevent any wild movements
         coord = parseFloat(coord);
-        var CEILING = 40;
-        var FLOOR = -10;
+        var CEILING = 25;
+        var FLOOR = -20;
         if (coord > 0) {
           coord = Math.min(coord, CEILING);
         } else {
@@ -249,7 +306,7 @@
           var y = event.y;
           var z = event.z;
 
-          // console.log(x);
+          console.log("old: " + x);
           // console.log(y);
 
           x = enforceCoordinateBoundX(x);
@@ -259,10 +316,12 @@
           $y_debug.text(parseFloat(y).toFixed(2));
           $z_debug.text(parseFloat(y).toFixed(2));
 
-          var adjustedX = x * 20;
+          var adjustedX = x * 17;
           var adjustedY = y * 6;
 
           adjustedY *= -1;
+
+          console.log("new: " + adjustedX);
 
   		    $("#video_stream").css('left', adjustedX + "px");
   		    $("#video_stream").css('top', adjustedY + "px");
